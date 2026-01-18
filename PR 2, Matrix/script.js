@@ -8,9 +8,10 @@ app.get('/', (req, res)=>{
 })
 
 // for this all links are named exactly as file name, to reducxe code
-app.get('/:pagename', (req, res)=>{
-    res.render(req.params.pagename);
+app.get('/:page', (req, res)=>{
+    res.render(req.params.page);
 })
+
 
 app.listen(8000, ()=>{
     console.log('Server started at port http://localhost:8000')
