@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+</head>
+
+<body class="overflow-hidden bg-zinc-900">
+
+    <section class="w-screen h-screen  text-white py-1">
+        <div class="w-full flex justify-center mt-10">
+            <h1 class="text-5xl font-bold">TODO APP</h1>
+        </div>
+        <form action="/addtask" method="post" class="mx-auto pb-1">
+
+            <input type="text" name="task" id="task" placeholder="Enter your task" class="mx-auto p-2 text-2xl border-2 mt-10 rounded block text-white" />
+            <!-- <input type="time" name="timeout" id="timeout" class="mx-auto mt-3 p-2 rounded block text-white border" /> -->
+             <input type="number" name="timeout" id="timeout" placeholder="Enter timeout in minutes" class="mx-auto mt-3 p-2 rounded block text-white border" />
+            <button type="submit" class="mx-auto mt-3 p-2 bg-blue-600 rounded block text-xl hover:bg-blue-700 transition duration-300">Add
+            Task</button>
+        </form>
+
+        <div class="w-full flex justify-center mt-10">
+            <table class="table-auto border-collapse border border-slate-400">
+                <thead>
+                    <tr>
+                        <th class="border border-slate-300 px-4 py-2">Task</th>
+                        <th class="border border-slate-300 px-4 py-2">Timeout (minutes)</th>
+                        <th class="border border-slate-300 px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% tasks.forEach(function(task) { %>
+                    <tr>
+                        <td class="border border-slate-300 px-4 py-2"><%= task.task %></td>
+                        <td class="border border-slate-300 px-4 py-2"><%= task.timeout %> minutes</td>
+                        <td class="border border-slate-300 px-4 py-2">  
+                                <a href="/deletetask/<%= task.id %>" class="bg-transparent border hover:border-transparent text-white px-2 py-1 rounded-md hover:bg-red-600 transition duration-300">Delete</a>
+                                <a href="/updatetask/<%= task.id %>" class="bg-transparent border hover:border-transparent text-white px-2 py-1 rounded-md hover:bg-blue-300 hover:text-black transition duration-300">Update</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+    </section>
+    <div class="absolute bottom-0  left-1/2 -translate-1/2 rounded px-5 py-3 text-white w-8/12 text-xl text-center mx-auto bg-zinc-800 "><span class="font-bold text-amber-400">Caution: </span>The Task will be automatically removed when the timer goes off</div>
+
+    <script src="/tailwind.js"></script>
+</body>
+
+</html>
