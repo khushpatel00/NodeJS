@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+
+<body class='bg-zinc-900 text-white'>
+    <h1 class="p-10 text-4xl">BookStore</h1>
+    <!-- form -->
+    <div class="flex justify-center">
+        <form action="/addBook" method="post" class="w-2/3 flex flex-row text-2xl flex-wrap justify-center items-center align-center" enctype="multipart/form-data">
+            <div class="basis-1/2 flex justify-center items-center ">
+                <label for="title">Title: </label>
+                <input type="text" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1" name="title" id="title">
+            </div>
+            <div class="basis-1/2 flex justify-center items-center ">
+                <label for="discription">Discription: </label>
+                <input type="text" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1" name="discription" id="discription">
+            </div>
+            <div class="basis-1/2 flex justify-center items-center ">
+                <label for="price">Price: </label>
+                <input type="number" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1" name="price" id="price">
+            </div>
+            <div class="basis-1/2 flex justify-center items-center ">
+                <label for="author">Author: </label>
+                <input type="text" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1" name="author" id="author">
+            </div>
+            <div class="basis-1/2 flex justify-center items-center ">
+                <label for="genre">Genre <span class="text-zinc-400 text-xl pe-1">(optional)</span>: </label>
+                <input type="text" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1" name="genre" id="genre">
+            </div>
+            <div class="basis-1/2 flex justify-center items-center gap-10">
+                <label for="image">Cover Image: </label>
+                <div class="relative text-center cursor-pointer">
+                    <input type="file" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1 text-transparent cursor-pointer h-20 w-40" name="coverImage" id="image">
+                    <span class="absolute top-1/2 left-1/2 -translate-1/2 text-center text-lg">Set Cover</span>
+                </div>
+            </div>
+            <div class="basis-full flex justify-center mt-10">
+                <input type="submit" value="Add Book" class=" bg-zinc-800 p-1 px-3 rounded-sm cursor-pointer hover:bg-emerald-700 focus:bg-emerald-700 duration-200 hover:rounded-4xl focus:rounded-4xl ">
+            </div>
+        </form>
+    </div>
+
+    <div class="flex justify-center mt-20 gap-5">
+        <% book.forEach((item, index) => { %>
+            <div class="bg-amber-200/80 text-zinc-900 relative rounded-xl overflow-hidden">
+                <img src="https://placehold.co/500x600.png" class="h-60 " alt="">
+                <h3 class="text-4xl absolute bottom-0 left-0 p-2 pb-1.5"><%= item.title %></h3>
+            </div>
+        <% }) %>
+    </div>
+
+</body>
+
+</html>
