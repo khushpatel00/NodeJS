@@ -21,7 +21,7 @@ exports.addBook = async (req, res) => {
         // console.log(bookObj)
         if (bookObj.title != '' && bookObj.discription != '' && bookObj.price != '') {
             let book = await bookModel.create(bookObj);
-            console.log('data inserted into database, ', book)
+            // console.log('data inserted into database, ', book)
         };
         res.redirect('/')
     } catch (err) {
@@ -50,10 +50,10 @@ exports.editBookPost = async (req, res) => {
     if (req.file) {
         fs.unlinkSync(path.join(__dirname, '..', 'public', oldBook.imagePath))
         imagePath = `/uploads/${req.file.filename}`;
-        bookObj.imagePath = imagePath
     }
-    let book = await bookModel.findByIdAndUpdate(req.query.id, {
-        bookObj
-    });
+        bookObj.imagePath = imagePath
+        console.log(bookObj)
+    let book = await bookModel.findByIdAndUpdate(req.query.id, bookObj);
     // bookModel.findByIdAndUpdate(req.query.id)
+    res.redirect('/')
 };
