@@ -8,6 +8,6 @@ routes.post('/addBook', uploads.single('coverImage') ,root.addBook)
 routes.post('/deleteBook', root.deleteBook) 
 routes.get('/editBook', root.editBook)
 routes.post('/editBook', uploads.single('coverImage') ,root.editBookPost)
-    
+routes.post('/search', root.search)
 
 module.exports = routes

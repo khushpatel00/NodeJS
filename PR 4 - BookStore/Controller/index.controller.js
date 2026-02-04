@@ -45,15 +45,32 @@ exports.editBookPost = async (req, res) => {
     // console.log('edited data', req.body, req.query.id)
     let oldBook = await bookModel.findById(req.query.id);
     let imagePath = oldBook.imagePath;
-    let bookObj = {...req.body};
+    let bookObj = { ...req.body };
     // console.log('old data: ',oldBook)
     if (req.file) {
         fs.unlinkSync(path.join(__dirname, '..', 'public', oldBook.imagePath))
         imagePath = `/uploads/${req.file.filename}`;
     }
-        bookObj.imagePath = imagePath
-        console.log(bookObj)
+    bookObj.imagePath = imagePath
+    console.log(bookObj)
     let book = await bookModel.findByIdAndUpdate(req.query.id, bookObj);
     // bookModel.findByIdAndUpdate(req.query.id)
     res.redirect('/')
 };
+exports.search = async (req, res) => {
+    // let searchQuery = req.body.search
+    const searchQuery = String(req.body.search || '').trim();
+    console.log(searchQuery);
+    let book = await bookModel.find({
+        $or: [
+            { title: { $regex: searchQuery, $options: 'i' } },
+            { discription: { $regex: searchQuery, $options: 'i' } },
+            { author: { $regex: searchQuery, $options: 'i' } },
+            { genre: { $regex: searchQuery, $options: 'i' } },
+        ]
+    })
+    console.log(book)
+    console.log(Object.keys(bookModel.schema.paths));
+
+    res.render('index', { book })
+}

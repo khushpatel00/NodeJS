@@ -66,31 +66,32 @@
         </form>
     </div>
 
-    <!-- <form method="post" action="search" class="flex justify-center items-center mt-10"> 
+    <form method="post" action="search" class="flex justify-center items-center mt-10"> 
         <label for="search">Search: </label>
         <input type="text" name="search" id="search" class="bg-zinc-800 rounded-sm border-zinc-500 border m-1">
-    </form> -->
+    </form>
 
     <div class="flex justify-center mt-20 gap-5">
         <% book.forEach((item, index)=> { %>
             <div class="bg-amber-200/80 text-zinc-900 relative rounded-xl overflow-hidden min-h-60 min-w-40 bookParent">
                 <!-- <img src="https://placehold.co/500x600.png" class="h-60 " alt=""> -->
                 <img src="<%= item.imagePath %>" class="h-60 " alt="" />
-                <div class="text-4xl leading-5 absolute bottom-0 duration-200 left-0 p-2 pb-1.5 title">
-                    <h2><%= item.title %>,<span class="text-lg"><%= item.author %></span></h2> 
-                    <h3 class="text-xl duration-200">
+                <div class="text-3xl leading-5 absolute bottom-0 duration-200 left-0 p-2 pb-1.5 title">
+                    <h2 class="text-shadow-[0_0_20px_rgb(255_255_255_/_1)] text-wrap"><%= item.title %>,<span class="text-lg text-wrap"><%= item.author %></span></h2> 
+                    <h3 class="text-xl duration-200 text-shadow-[0_0_20px_rgb(255_255_255_/_1)]">
                         $ <%= item.price %>
                     </h3>
-                    <h3 class="text-xl duration-200">
+                    <h3 class="text-xl duration-200 text-shadow-[0_0_20px_rgb(255_255_255_/_1)]">
                         <%= item.genre %>
                     </h3>
                 </div>
                 <div class="absolute top-0 right-0 -translate-x-1/2 translate-y-1/4 flex flex-col-reverse  flex-wrap text-red-500 text-2xl cursor-pointer">
-                    <form action="/deleteBook/?id=<%= item._id %>" method="post">
+                    <form action="/deleteBook/?id=<%= item._id %>" method="post" class="text-shadow-[0_0_20px_rgb(255_255_255_/_1)]">
+                        <!-- <input type="submit" value="🗑"></input> -->
                         <input type="submit" value="&#128465;"></input>
                     </form>
                     <!-- <a href="/deleteBook/<%= item._id %>">&#128465;</a > -->
-                    <a href="/editBook/?id=<%= item._id %>">✏️</a >
+                    <a href="/editBook/?id=<%= item._id %>" class="text-shadow-[0_0_20px_rgb(255_255_255_/_1)]">✏️</a >
                 </div> 
                 
                 <p class="bookDiscription absolute opacity-0 duration-200 ps-3 text-xl">
