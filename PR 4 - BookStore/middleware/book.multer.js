@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, '../public/uploads/'))
     }, 
     filename: (req, file, cb) => {
-        cb(null, `cover${Date.now()}${path.extname(file.originalname)}`)
+        cb(null, `cover_${req.body.title}${Date.now()}${path.extname(file.originalname)}`)
     }
 })
 module.exports = multer({storage})
