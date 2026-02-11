@@ -3,6 +3,8 @@ const routes = express.Router();
 const root = require('../Controller/index.controller');
 const uploads = require('../middleware/movie.multer')
 
-routes.get('/', root.homepage)
+routes.get('/', root.authenticate)
+routes.get('/dashboard', root.homepage)
+
 
 module.exports = routes
