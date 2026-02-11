@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const root = require('../Controller/admin.controller');
-const uploads = require('../middleware/movie.multer')
+const uploads = require('../middleware/admin.multer')
 
 
 routes.get('/', root.viewAdminPage) // fallback
