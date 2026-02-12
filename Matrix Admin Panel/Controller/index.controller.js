@@ -2,7 +2,8 @@ const adminModel = require('../model/admin.model')
 const path = require('path')
 const fs = require('fs')
 exports.homepage = async (req, res) => {
-    res.render('dashboard');
+    if(req.cookies?.adminauth?._id) return res.render('dashboard');
+    return res.redirect('/auth/login');
 };
 exports.loginPage = (req, res) => {
     res.render('login')
