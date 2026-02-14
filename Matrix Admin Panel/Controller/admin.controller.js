@@ -11,12 +11,29 @@ exports.viewAdminPage = async (req, res) => {
     res.render('viewadmin', { admins });
 };
 exports.addAdmin = async (req, res) => {
+    // console.log(req.file);
     admin = req.body
-    admin.profilePath = '' // multer setup is unfinished
-    let hashed = await bcrypt.hash(admin.password, 10)
-    admin.password = hashed;
+
+    admin.profilePath = req.file ? `/uploads/${req.file.filename}` : ''
+    admin.password = await bcrypt.hash(admin.password, 10);
+
     // console.log(admin)
     newadmin = await adminModel.create(admin);
-    console.log(newadmin);
+    // console.log(newadmin);
     return res.redirect('/')
+}
+exports.editAdmin = async (req, res) => {
+    // console.log(req.params)
+    let admin = await adminModel.findOneAndUpdate({"_id": req.params._id}, req.body)
+    // task: delete old image if new arrives, add new image, add new path in database
+    // console.log(admin)
+
+    return res.render('editadmin', { admin })
+}
+exports.deleteAdmin = async (req, res) => {
+    // console.log(req.params)
+    let admin = await adminModel.findOneAndDelete({"_id": req.params._id})
+    // task: delete image
+    // console.log(admin)
+    return res.redirect('/admin/view-admin')
 }

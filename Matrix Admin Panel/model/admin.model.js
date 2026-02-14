@@ -5,7 +5,8 @@ const adminSchema = mongoose.Schema({
     lastname: String,
     username: String,
     password: String,
-    contactno: String,
+    email: String,
+    contact: String,
     profilePath: String,
 })
 

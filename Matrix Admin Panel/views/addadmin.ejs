@@ -34,7 +34,7 @@
         <div class="row h-100 flex my-auto justify-content-center align-items-center">
             <div class="col-md-6">
                 <div class="card">
-                    <form class="form-horizontal" method="post" action="/admin/add-admin">
+                    <form class="form-horizontal" method="post" action="/admin/add-admin" enctype="multipart/form-data">
                         <div class="card-body">
                             <h4 class="card-title">Admin Info</h4>
                             <div class="form-group row">
@@ -50,29 +50,35 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Username</label>
+                                <label for="email" class="col-sm-3 text-right control-label col-form-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="username" id="lname" required placeholder="Username Here">
+                                    <input type="email" class="form-control" name="email" id="email" required placeholder="Email Here">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Password</label>
+                                <label for="username" class="col-sm-3 text-right control-label col-form-label">Username</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="password" id="lname" required placeholder="Password Here">
+                                    <input type="text" class="form-control" name="username" id="username" required placeholder="Username Here">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Contact No</label>
+                                <label for="password" class="col-sm-3 text-right control-label col-form-label">Password</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="contactno" id="cono1" required placeholder="Contact No Here">
+                                    <input type="password" class="form-control" name="password" id="password" required placeholder="Password Here">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-3 text-right control-label col-form-label">File Upload</label>
+                                <label for="contact" class="col-sm-3 text-right control-label col-form-label">Contact No</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="contact" id="contact" required placeholder="Contact No Here">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Profile Image</label>
                                 <div class="col-sm-9">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                                        <input type="file" class="custom-file-input" name="profileImage" id="profileImage" required>
+                                        <label class="custom-file-label" for="profileImage">Choose file...</label>
                                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                                     </div>
                                 </div>
