@@ -25,7 +25,7 @@
                     <label class="col-sm-3 text-right control-label col-form-label">Blog Cover (optional)</label>
                     <div class="col-sm-9">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profileImage" id="profileImage" required>
+                            <input type="file" class="custom-file-input" name="profileImage" id="profileImage">
                             <label class="custom-file-label" for="profileImage">Choose file...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
@@ -48,6 +48,7 @@
                 <h6><%= b.author %></h6>
 
                 <p><%= b.description %></p>
+                <a href="/blog/edit-blog/<%=b._id%>" class="text-warning pr-2">Edit</a>
                 <a href="/blog/delete-blog/<%=b._id%>" class="text-danger">Delete</a>
             </div>
         <% }) %>

@@ -4,14 +4,14 @@ const path = require('path')
 const fs = require('fs')
 const bcrypt = require("bcrypt");
 exports.homepage = async (req, res) => {
-    if(req.cookies?.adminauth?._id) return res.render('dashboard');
+    if (req.cookies?.adminauth?._id) return res.render('dashboard');
     return res.redirect('/auth/login');
 };
 exports.loginPage = (req, res) => {
     res.render('login')
 }
 exports.authenticate = (req, res) => { // authenticate at dashboard entry
-    if(req.cookies?.adminauth?._id) return res.redirect('/dashboard');
+    if (req.cookies?.adminauth?._id) return res.redirect('/dashboard');
     return res.redirect('/auth/login');
 }
 exports.blog = async (req, res) => {
@@ -19,7 +19,7 @@ exports.blog = async (req, res) => {
     return res.render('blog', { blog });
 }
 exports.addBlog = async (req, res) => {
-        // console.log(req.file);
+    // console.log(req.file);
     let blog = req.body
 
     blog.coverImage = req.file ? `/uploads/blog/${req.file.filename}` : ''
@@ -29,9 +29,33 @@ exports.addBlog = async (req, res) => {
     return res.redirect('/blog')
 }
 exports.deleteBlog = async (req, res) => {
+    try {
+
+        console.log(req.params._id)
+        let oldBlog = await blogModel.findOne({ _id: req.params._id })
+        if (oldBlog.coverImage) fs.unlinkSync(path.join(__dirname, '..', 'public', oldBlog.coverImage))
+        let blog = await blogModel.findOneAndDelete({ _id: req.params._id })
+    } catch (e) {
+        console.log('error :', e)
+        res.redirect('/blog');
+    }
+    res.redirect('/blog');
+}
+exports.editBlog = async (req, res) => {
     console.log(req.params._id)
-    let oldBlog = await blogModel.findOne({_id: req.params._id})
-    fs.unlinkSync(path.join(__dirname, '..', 'public', oldBlog.coverImage))
-    let blog = await blogModel.findOneAndDelete(req.params._id)
+    let newBlog = { ...req.body, coverImage: '' }
+    let oldBlog = await blogModel.findOne({ _id: req.params._id })
+
+    if (req?.file?.filename) { // delete only if new image arrives 
+        if (oldBlog.coverImage) fs.unlinkSync(path.join(__dirname, '..', 'public', oldBlog.coverImage))
+        newBlog.coverImage = `/uploads/blog/${req.file.filename}`;
+    } else newBlog.coverImage = oldBlog.coverImage || '';
+    let blog = await blogModel.findOneAndUpdate({ _id: req.params._id }, newBlog);
+    // console.log(req.body, newBlog);
     res.redirect('/blog')
+}
+exports.editBlogPage = async (req, res) => {
+    console.log(req.params._id)
+    let blog = await blogModel.findOne({ _id: req.params._id })
+    res.render('editBlog', { blog })
 }
