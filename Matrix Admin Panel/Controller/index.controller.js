@@ -59,3 +59,18 @@ exports.editBlogPage = async (req, res) => {
     let blog = await blogModel.findOne({ _id: req.params._id })
     res.render('editBlog', { blog })
 }
+exports.searchBlog = async (req, res) => {
+    const searchQuery = String(req.body.search || '').trim();
+    let blog = await blogModel.find({
+        $or: [
+            { title: { $regex: searchQuery, $options: 'i' } },
+            { description: { $regex: searchQuery, $options: 'i' } },
+            { author: { $regex: searchQuery, $options: 'i' } },
+            { category: { $regex: searchQuery, $options: 'i' } },
+        ]
+    })
+    // console.log(movie)
+    // console.log(Object.keys(movieModel.schema.paths));
+
+    res.render('blog', { blog })
+}

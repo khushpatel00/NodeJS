@@ -5,6 +5,7 @@ const adminSchema = mongoose.Schema({
     author: String,
     description: String,
     coverImage: String,
+    category: String,
 })
 
 module.exports = mongoose.model('blog', adminSchema);
