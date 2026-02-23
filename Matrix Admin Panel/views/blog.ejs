@@ -65,22 +65,17 @@
             <label for="search" class="m-0 p-0">Search: </label>
             <input type="text" name="search" id="search" style="border-radius: 8px !important;" class="border m-1 p-1">
         </form>
-        <form method="post" action="/blog/filter" class="d-flex justify-content-center align-items-center fs-2 mt-2">
-            <label for="Other" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">All </label>
-            <input type="checkbox" name="All" id="">
-            <label for="Technology" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Technology </label>
-            <input type="checkbox" name="Technology" id="">
-            <label for="Cooking" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Cooking </label>
-            <input type="checkbox" name="Cooking" id="">
-            <label for="Travel" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Travel </label>
-            <input type="checkbox" name="Travel" id="">
-            <label for="Personal" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Personal </label>
-            <input type="checkbox" name="Personal" id="">
-            <label for="Business" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Business </label>
-            <input type="checkbox" name="Business" id="">
-            <label for="Fashion" style='font-size: 1.2rem;' class="m-0 ml-4 p-0 mr-2">Fashion </label>
-            <input type="checkbox" name="Fashion" id="">
-
+        <form action="" class="text-center">
+            <button class="btn btn-warning btn-sm mt-2">All</button>
+            <% let OldData=[] %>
+                <% blog.map((b)=>{ %>
+                    <% if(b.category && !OldData.includes(b.category)) { %>
+                        <a href="/blog?category=<%= b.category %>" class="btn btn-primary btn-sm mt-2 ml-2">
+                            <%= b.category %>
+                        </a>
+                        <% OldData.push(b.category)%>
+                    <%}%>
+                <% })%>
         </form>
 
 
@@ -89,25 +84,28 @@
         <div class="d-flex">
             <% blog.forEach((b, i)=>{ %>
                 <div class="p-4 w-50">
-                    <img src="<%= b.coverImage %>" class="img-fluid mb-2 rounded-3" alt="" />
-                    <h3>
-                        <%= b.title %>
-                    </h3>
-                    <% if(b?.category){ %>
-                        <span class="badge badge-pill badge-secondary mb-2"
-                            style="background-color: #6c757d; color: white;">
-                            <%= b.category %>
-                        </span>
-                        <% } %>
-                            <h6>
-                                <%= b.author %>
-                            </h6>
+                    <a href="/OneBlogView/<%= b._id %>" class="text-decoration-none" style="color: black;">
 
-                            <p>
-                                <%= b.description %>
-                            </p>
-                            <a href="/blog/edit-blog/<%= b._id %>" class="text-warning pr-2">Edit</a>
-                            <a href="/blog/delete-blog/<%= b._id %>" class="text-danger">Delete</a>
+                        <img src="<%= b.coverImage %>" class="img-fluid mb-2 rounded-3" alt="" />
+                        <h3>
+                            <%= b.title %>
+                        </h3>
+                        <% if(b?.category){ %>
+                            <span class="badge badge-pill badge-secondary mb-2"
+                                style="background-color: #6c757d; color: white !important;">
+                                <%= b.category %>
+                            </span>
+                            <% } %>
+                                <h6>
+                                    <%= b.author %>
+                                </h6>
+
+                                <p>
+                                    <%= b.description %>
+                                </p>
+                                <a href="/blog/edit-blog/<%= b._id %>" class="text-warning pr-2">Edit</a>
+                                <a href="/blog/delete-blog/<%= b._id %>" class="text-danger">Delete</a>
+                    </a>
                 </div>
                 <% }) %>
         </div>

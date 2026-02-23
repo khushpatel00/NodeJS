@@ -15,7 +15,14 @@ exports.authenticate = (req, res) => { // authenticate at dashboard entry
     return res.redirect('/auth/login');
 }
 exports.blog = async (req, res) => {
-    let blog = await blogModel.find();
+    let filter = {};
+    let blog = {}
+    const categorySearch = req.query.category;
+    if (categorySearch) {
+        filter.category = categorySearch;
+        blog = await blogModel.find(filter);
+    } else blog = await blogModel.find();
+    console.log(blog)
     return res.render('blog', { blog });
 }
 exports.addBlog = async (req, res) => {
@@ -73,4 +80,15 @@ exports.searchBlog = async (req, res) => {
     // console.log(Object.keys(movieModel.schema.paths));
 
     res.render('blog', { blog })
+}
+exports.OneBlogView = async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const blog = await blogModel.findById(blogId);
+
+        return res.render("OneBlogView", { blog });
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
 }

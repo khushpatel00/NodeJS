@@ -12,4 +12,5 @@ routes.get('/blog/delete-blog/:_id', root.deleteBlog)
 routes.get('/blog/edit-blog/:_id', root.editBlogPage)
 routes.post('/blog/edit-blog/:_id', blogUploads.single('coverImage'),  root.editBlog)
 routes.post('/blog/search',  root.searchBlog)
+routes.get("/OneBlogView/:id",root.OneBlogView)
 module.exports = routes
