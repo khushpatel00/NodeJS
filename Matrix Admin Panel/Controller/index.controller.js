@@ -3,15 +3,17 @@ const blogModel = require('../model/blog.model')
 const path = require('path')
 const fs = require('fs')
 const bcrypt = require("bcrypt");
+
+
 exports.homepage = async (req, res) => {
-    if (req.cookies?.adminauth?._id) return res.render('dashboard');
+    if (req.isAuthenticated()) return res.render('dashboard');
     return res.redirect('/auth/login');
 };
 exports.loginPage = (req, res) => {
     res.render('login')
 }
 exports.authenticate = (req, res) => { // authenticate at dashboard entry
-    if (req.cookies?.adminauth?._id) return res.redirect('/dashboard');
+    if (req.isAuthenticated()) return res.redirect('/dashboard');
     return res.redirect('/auth/login');
 }
 exports.blog = async (req, res) => {

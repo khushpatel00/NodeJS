@@ -4,6 +4,9 @@ const path = require('path')
 const port = 8173
 const app = express();
 const connectDataBase = require('./config/dbConnect')
+const session = require("express-session");
+const passport = require("./Controller/localStrategy");
+
 
 app.set('view engine', 'ejs');
 
@@ -13,10 +16,22 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cookieParser());
 
-app.use('/', require('./routes/index.routes'))
+app.use(session({
+    secret: "secret98",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
 app.use('/auth', require('./routes/auth.routes'))
 app.use('/admin', require('./routes/admin.routes'))
+app.use('/', require('./routes/index.routes'))
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`server running at http://localhost:${port}`)
 })
