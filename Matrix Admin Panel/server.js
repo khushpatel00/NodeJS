@@ -30,6 +30,7 @@ app.use(passport.session());
 
 app.use('/auth', require('./routes/auth.routes'))
 app.use('/admin', require('./routes/admin.routes'))
+app.use('/category', require('./routes/category.routes'))
 app.use('/', require('./routes/index.routes'))
 
 app.listen(port, () => {
