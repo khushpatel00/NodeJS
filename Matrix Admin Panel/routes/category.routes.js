@@ -7,9 +7,9 @@ const passport = require("../Controller/localStrategy");
 routes.get('/view-category', passport.checkAuthenticate, root.viewCategoryPage)
 routes.get('/add-category', passport.checkAuthenticate, root.addCategoryPage)
 routes.post('/add-category', uploads.single('categoryImage'), root.addCategory)
-
-// routes.get('/update-category', passport.checkAuthenticate, root.updateCategoryPage)
-// routes.get('/delete-category', passport.checkAuthenticate, root.deleteCategoryPage)
+routes.get('/edit-category/:_id', passport.checkAuthenticate, root.editCategoryPage)
+routes.post('/edit-category/:_id', uploads.single('categoryImage'), root.editCategory)
+routes.get('/delete-category/:_id', passport.checkAuthenticate, root.deleteCategory)
 
 
 module.exports = routes;

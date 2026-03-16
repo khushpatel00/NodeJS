@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
 const extraCategorySchema = mongoose.Schema({
-    scid: mongoose.Schema.Types.ObjectId, // subcategory id
+    scid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'subcategory'
+    }, // subcategory id
     ecname: String, // extracategory name
-    extraCategoryCover: String,  
+    extraCategoryCover: String,
 })
 
 module.exports = mongoose.model('extracategory', extraCategorySchema);
