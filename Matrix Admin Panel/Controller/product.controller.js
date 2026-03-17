@@ -14,7 +14,7 @@ exports.viewProductPage = async (req, res) => {
         res.render('viewproduct', { products })
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
 
@@ -26,7 +26,7 @@ exports.addProductPage = async (req, res) => {
         res.render('addproduct', { categories, subcategories, extracategories })
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
 
@@ -41,7 +41,7 @@ exports.addProduct = async (req, res) => {
         return res.redirect('/product/view-product')
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
 
@@ -61,7 +61,7 @@ exports.deleteProduct = async (req, res) => {
         return res.redirect('/product/view-product')
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
 
@@ -77,7 +77,7 @@ exports.editProductPage = async (req, res) => {
         return res.render('editproduct', { product, categories, subcategories, extracategories })
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
 
@@ -99,6 +99,6 @@ exports.editProduct = async (req, res) => {
         res.redirect('/product/view-product')
     } catch (error) {
         console.error(error)
-        res.status(500).send('Server Error')
+        res.redirect('/')
     }
 }
