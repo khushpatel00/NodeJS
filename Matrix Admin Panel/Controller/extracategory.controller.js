@@ -1,5 +1,6 @@
 const extraCategoryModel = require('../model/extracategory.model')
 const subCategoryModel = require('../model/subcategory.model')
+const categoryModel = require('../model/category.model')
 const path = require('path')
 const fs = require('fs')
 
@@ -9,8 +10,10 @@ exports.viewextraCategoryPage = async (req, res) => {
     res.render('viewextracategory', { categories })
 }
 exports.addextraCategoryPage = async (req, res) => {
-    subcategories = await subCategoryModel.find().populate('cid');
-    res.render('addextracategory', { subcategories })
+    const categories = await categoryModel.find();
+    // Load all subcategories initially; frontend will filter them based on selected category.
+    const subcategories = await subCategoryModel.find().populate('cid');
+    res.render('addextracategory', { categories, subcategories })
 }
 exports.addextraCategory = async (req, res) => {
     console.log(req.body);
@@ -32,9 +35,15 @@ exports.deleteextraCategory = async (req, res) => {
     return res.redirect('/extracategory/view-extracategory')
 }
 exports.editextraCategoryPage = async (req, res) => {
-    let extracategory = await extraCategoryModel.findOne({ _id: req.params._id}).populate('scid');
+    const categories = await categoryModel.find();
+    // Populate scid and its cid (category) so we can pre-select the right category/subcategory
+    let extracategory = await extraCategoryModel.findOne({ _id: req.params._id})
+        .populate({
+            path: 'scid',
+            populate: { path: 'cid' }
+        });
     let subcategories = await subCategoryModel.find().populate('cid');
-    return res.render('editextracategory', { extracategory, subcategories })
+    return res.render('editextracategory', { categories, extracategory, subcategories })
 }
 exports.editextraCategory = async (req, res) => {
     console.log(req.body, req.file)

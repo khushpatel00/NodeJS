@@ -44,15 +44,21 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Category</label>
+                                <div class="col-md-9">
+                                    <select id="categorySelect" required class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                        <option selected disabled value="">Select</option>
+                                        <% categories.forEach((category) => { %>
+                                            <option value="<%= category._id %>" <%= extracategory.scid && extracategory.scid.cid && extracategory.scid.cid._id.toString() === category._id.toString() ? 'selected' : '' %>><%= category.cname %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-sm-3 text-right control-label col-form-label">Sub Category Name</label>
                                 <div class="col-md-9">
-                                    <select name="scid" required class="select2 form-control custom-select" style="width: 100%; height:36px;">
-                                        <option selected disabled value="">Select</option>
-                                        <% subcategories.forEach((subcategory, i)=>{ %>
-                                            <option value="<%=subcategory._id%>" <%= extracategory.scid && extracategory.scid._id.toString() === subcategory._id.toString() ? 'selected' : '' %>>
-                                                <%=subcategory.scname%> (<%=subcategory?.cid?.cname%>)
-                                            </option>
-                                            <% }) %>
+                                    <select id="subcategorySelect" name="scid" required class="select2 form-control custom-select" style="width: 100%; height:36px;" disabled>
+                                        <option selected disabled value="">Select category first</option>
                                     </select>
                                 </div>
                             </div>
@@ -93,5 +99,56 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
+
+    <script>
+        const categorySelect = document.getElementById('categorySelect');
+        const subcategorySelect = document.getElementById('subcategorySelect');
+        const initialCategoryId = "<%= extracategory.scid && extracategory.scid.cid ? extracategory.scid.cid._id : '' %>";
+        const initialSubcategoryId = "<%= extracategory.scid ? extracategory.scid._id : '' %>";
+
+        const setSubcategoryOptions = (subcategories) => {
+            subcategorySelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            placeholder.textContent = 'Select';
+            subcategorySelect.appendChild(placeholder);
+            subcategories.forEach(sc => {
+                const option = document.createElement('option');
+                option.value = sc._id;
+                option.textContent = `${sc.scname} (${sc.cid ? sc.cid.cname : 'N/A'})`;
+                if (initialSubcategoryId && sc._id.toString() === initialSubcategoryId.toString()) {
+                    option.selected = true;
+                }
+                subcategorySelect.appendChild(option);
+            });
+            subcategorySelect.disabled = false;
+        };
+        const loadSubcategoriesByCategory = async (categoryId) => {
+            if (!categoryId) {
+                subcategorySelect.disabled = true;
+                return;
+            }
+
+            try {
+                const response = await fetch(`/subcategory/api/by-category/${categoryId}`);
+                const subcategories = await response.json();
+                setSubcategoryOptions(subcategories);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        categorySelect.addEventListener('change', () => {
+            const categoryId = categorySelect.value;
+            loadSubcategoriesByCategory(categoryId);
+        });
+
+        // Initialize dropdowns on page load
+        if (initialCategoryId) {
+            loadSubcategoriesByCategory(initialCategoryId);
+        }
+    </script>
 
 <%- include('footer') %>
