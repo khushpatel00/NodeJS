@@ -82,11 +82,8 @@
                             <div class="form-group row">
                                 <label for="subcategory" class="col-sm-3 text-right control-label col-form-label">Subcategory</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="subcategory" id="subcategory" required>
-                                        <option value="">Select Subcategory</option>
-                                        <% subcategories.forEach(subcategory => { %>
-                                            <option value="<%= subcategory._id %>"  <%= product.subcategory && product.subcategory._id.toString() === subcategory._id.toString() ? 'selected' : '' %>><%= subcategory.scname %> (<%= subcategory.cid ? subcategory.cid.cname : 'N/A' %>)</option>
-                                        <% }) %>
+                                    <select class="form-control" name="subcategory" id="subcategory" required disabled>
+                                        <option value="">Select category first</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,11 +91,8 @@
                             <div class="form-group row">
                                 <label for="extracategory" class="col-sm-3 text-right control-label col-form-label">Extracategory</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="extracategory" id="extracategory" required>
-                                        <option value="">Select Extracategory</option>
-                                        <% extracategories.forEach(extracategory => { %>
-                                            <option value="<%= extracategory._id %>" <%= product.extracategory && product.extracategory._id.toString() === extracategory._id.toString() ? 'selected' : '' %>><%= extracategory.ecname %> (<%= extracategory.scid ? extracategory.scid.scname : 'N/A' %>)</option>
-                                        <% }) %>
+                                    <select class="form-control" name="extracategory" id="extracategory" required disabled>
+                                        <option value="">Select subcategory first</option>
                                     </select>
                                 </div>
                             </div>

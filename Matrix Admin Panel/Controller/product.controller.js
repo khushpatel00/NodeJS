@@ -21,9 +21,7 @@ exports.viewProductPage = async (req, res) => {
 exports.addProductPage = async (req, res) => {
     try {
         const categories = await categoryModel.find()
-        const subcategories = await subcategoryModel.find().populate('cid')
-        const extracategories = await extracategoryModel.find().populate('scid')
-        res.render('addproduct', { categories, subcategories, extracategories })
+        res.render('addproduct', { categories })
     } catch (error) {
         console.error(error)
         res.redirect('/')
@@ -72,9 +70,7 @@ exports.editProductPage = async (req, res) => {
             .populate('subcategory')
             .populate('extracategory')
         const categories = await categoryModel.find()
-        const subcategories = await subcategoryModel.find().populate('cid')
-        const extracategories = await extracategoryModel.find().populate('scid')
-        return res.render('editproduct', { product, categories, subcategories, extracategories })
+        return res.render('editproduct', { product, categories })
     } catch (error) {
         console.error(error)
         res.redirect('/')

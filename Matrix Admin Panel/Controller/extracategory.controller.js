@@ -58,3 +58,16 @@ exports.editextraCategory = async (req, res) => {
     let extracategory = await extraCategoryModel.findOneAndUpdate({"_id": req.params._id}, newextraCategory)
     res.redirect('/extracategory/view-extracategory')
 }
+
+// API: Return extracategories for a given subcategory
+exports.getExtracategoriesBySubcategory = async (req, res) => {
+    try {
+        const subcategoryId = req.params.subcategoryId;
+        if (!subcategoryId) return res.status(400).json({ error: 'subcategoryId is required' });
+        const extracategories = await extraCategoryModel.find({ scid: subcategoryId }).populate('scid');
+        return res.json(extracategories);
+    } catch (error) {
+        console.error('Error fetching extracategories by subcategory:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
