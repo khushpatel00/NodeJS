@@ -2,7 +2,7 @@ const adminModel = require('../Model/admin.model')
 
 exports.status = (req, res) => {
     try {
-        return res.status(200).json('ok');
+        return res.status(200).json({ status: 'ok' });
     } catch (error) {
         console.log(error)
         res.status(500).json('Internal Server Error')

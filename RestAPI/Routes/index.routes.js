@@ -2,8 +2,12 @@ const express = require('express');
 const routes = express.Router();
 const root = require('../Controller/index.controller')
 
-routes.get('/status', root.status)
-routes.get('/health', root.health)
+routes.get('/', root.status);
+routes.get('/health', root.health);
+
+routes.use('/admin', require('./admin.routes'));
+routes.use('/manager', require('./manager.routes'));
+routes.use('/employee', require('./employee.routes'));
 
 
-module.exports = routes
+module.exports = routes;

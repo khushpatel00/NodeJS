@@ -39,3 +39,7 @@ app.use('/', require('./routes/index.routes'))
 app.listen(port, () => {
     console.log(`server running at http://localhost:${port}`)
 })
+
+
+// username: john
+// pass: 12345
